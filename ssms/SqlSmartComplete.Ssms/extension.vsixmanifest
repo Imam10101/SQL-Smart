@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="SqlSmartComplete.EMSL.7d3f2a91-5b4c-4e8a-9c61-2f0b8d1e6a47" Version="1.0.0" Language="en-US" Publisher="EMSL" />
+    <DisplayName>SQL Smart Complete</DisplayName>
+    <Description xml:space="preserve">dbForge-style IntelliSense for SSMS: schema-aware suggestions, automatic table aliases and foreign-key JOIN suggestions, using the connection of the active query window.</Description>
+    <Tags>SQL, SSMS, T-SQL, IntelliSense, alias, autocomplete</Tags>
+  </Metadata>
+  <Installation AllUsers="true">
+    <InstallationTarget Id="Microsoft.VisualStudio.Ssms" Version="[21.0,)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
+  </Dependencies>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="File" Path="SqlSmartComplete.dll" />
+  </Assets>
+</PackageManifest>
