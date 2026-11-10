@@ -1,0 +1,173 @@
+{
+  "name": "sql-smart-complete",
+  "displayName": "SQL Smart Complete",
+  "description": "dbForge-style IntelliSense for SQL Server: schema-aware suggestions, automatic table aliases and foreign-key JOIN suggestions.",
+  "version": "0.1.0",
+  "publisher": "emsl",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://example.invalid/sql-smart-complete"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "sql",
+    "sql server",
+    "t-sql",
+    "intellisense",
+    "autocomplete"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:sql"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "sqlSmart.connect",
+        "title": "Connect to Server",
+        "category": "SQL Smart"
+      },
+      {
+        "command": "sqlSmart.selectDatabase",
+        "title": "Select Database",
+        "category": "SQL Smart"
+      },
+      {
+        "command": "sqlSmart.refresh",
+        "title": "Refresh Metadata",
+        "category": "SQL Smart"
+      },
+      {
+        "command": "sqlSmart.showLog",
+        "title": "Show Log",
+        "category": "SQL Smart"
+      }
+    ],
+    "configuration": {
+      "title": "SQL Smart Complete",
+      "properties": {
+        "sqlSmart.server": {
+          "type": "string",
+          "default": "localhost",
+          "description": "SQL Server instance, for example localhost, .\\SQLEXPRESS or 192.168.1.10,1433."
+        },
+        "sqlSmart.database": {
+          "type": "string",
+          "default": "",
+          "description": "Default database to read metadata from. A USE statement in the script overrides it."
+        },
+        "sqlSmart.authentication": {
+          "type": "string",
+          "enum": [
+            "windows",
+            "sql"
+          ],
+          "enumDescriptions": [
+            "Windows authentication (Integrated Security)",
+            "SQL Server login with user name and password"
+          ],
+          "default": "windows",
+          "description": "How to log in to SQL Server."
+        },
+        "sqlSmart.user": {
+          "type": "string",
+          "default": "",
+          "description": "SQL Server login name, used when authentication is 'sql'. The password is kept in VS Code's secret storage."
+        },
+        "sqlSmart.trustServerCertificate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Trust the server certificate without validation."
+        },
+        "sqlSmart.defaultSchema": {
+          "type": "string",
+          "default": "dbo",
+          "description": "Objects in this schema are inserted without the schema prefix."
+        },
+        "sqlSmart.schemaPrefix": {
+          "type": "string",
+          "enum": [
+            "whenNotDefault",
+            "always"
+          ],
+          "default": "whenNotDefault",
+          "description": "When to insert the schema in front of table and view names."
+        },
+        "sqlSmart.alias.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add an automatic alias when a table or view is inserted after FROM, JOIN or APPLY."
+        },
+        "sqlSmart.alias.useAsKeyword": {
+          "type": "boolean",
+          "default": false,
+          "description": "Insert 'Customers AS c' instead of 'Customers c'."
+        },
+        "sqlSmart.alias.case": {
+          "type": "string",
+          "enum": [
+            "lower",
+            "upper"
+          ],
+          "default": "lower",
+          "description": "Letter case of generated aliases."
+        },
+        "sqlSmart.alias.onSpace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also add an alias when you type a full table name after FROM/JOIN and press space, without picking it from the list."
+        },
+        "sqlSmart.columns.qualify": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "always",
+            "never"
+          ],
+          "enumDescriptions": [
+            "Prefix columns when the table has an alias or several tables are in the query",
+            "Always prefix columns with the alias or table name",
+            "Insert bare column names"
+          ],
+          "default": "auto",
+          "description": "Whether column suggestions insert 'c.Name' or just 'Name'."
+        },
+        "sqlSmart.keywordCase": {
+          "type": "string",
+          "enum": [
+            "upper",
+            "lower"
+          ],
+          "default": "upper",
+          "description": "Letter case of inserted keywords and built-in functions."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[sql]": {
+        "editor.wordBasedSuggestions": "off",
+        "editor.suggest.showWords": false
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "tsc -p ./ && node --test out/test/",
+    "package": "vsce package --allow-missing-repository --skip-license"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "~1.90.0",
+    "@vscode/vsce": "^3.2.0",
+    "typescript": "~5.9.0"
+  }
+}
